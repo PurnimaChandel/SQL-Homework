@@ -144,7 +144,26 @@ FROM SAKILA.CATEGORY
 WHERE NAME ="FAMILY"
 )
 );
+
 #7e. Display the most frequently rented movies in descending order.
+SELECT TITLE, COUNT(RENTAL.INVENTORY_ID) AS COUNT
+FROM SAKILA.FILM
+LEFT JOIN SAKILA.INVENTORY
+ON FILM.FILM_ID = INVENTORY.FILM_ID
+LEFT JOIN SAKILA.RENTAL
+ON INVENTORY.INVENTORY_ID = RENTAL.INVENTORY_ID
+GROUP BY FILM.TITLE
+ORDER BY COUNT DESC
+
 #7f. Write a query to display how much business, in dollars, each store brought in.
+SELECT STORE.STORE_ID, SUM(PAYMENT.AMOUNT) AS TOTAL_BUSINESS
+FROM SAKILA.STORE
+LEFT JOIN SAKILA.STAFF
+ON STORE.STORE_ID = STAFF.STORE_ID
+LEFT JOIN SAKILA.PAYMENT
+ON STAFF.STAFF_ID = PAYMENT.STAFF_ID
+GROUP BY STORE.STORE_ID;
+
 #7g. Write a query to display for each store its store ID, city, and country.
+
 #7h. List the top five genres in gross revenue in descending order. (Hint: you may need to use the following tables: category, film_category, inventory, payment, and rental.)
